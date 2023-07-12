@@ -42,4 +42,4 @@ jobs:
         app-name: 'udacity-techconf-function'
         slot-name: 'Production'
         package: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
-        publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_AD299DC241334C22BE6A9A69F6C8582B }}
+        publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_CB3F8E9788B04A629D76D6BA8BEF2804 }}
