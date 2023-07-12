@@ -6,7 +6,7 @@ The TechConf website allows attendees to register for an upcoming conference. Ad
 The application is currently working but the following pain points have triggered the need for migration to Azure:
  - The web application is not scalable to handle user load at peak
  - When the admin sends out notifications, it's currently taking a long time because it's looping through all attendees, resulting in some HTTP timeout exceptions
- - The current architecture is not cost-effective 
+ - The current architecture is not cost-effective
 
 In this project, you are tasked to do the following:
 - Migrate and deploy the pre-existing web app to an Azure App Service
@@ -61,11 +61,14 @@ You will need to install the following locally:
 ## Monthly Cost Analysis
 Complete a month cost analysis of each Azure resource to give an estimate total cost using the table below:
 
-| Azure Resource | Service Tier | Monthly Cost |
-| ------------ | ------------ | ------------ |
-| *Azure Postgres Database* |     |              |
-| *Azure Service Bus*   |         |              |
-| ...                   |         |              |
+| Azure Resource     | Service Tier                    | Monthly Cost   |
+| ------------------ | ------------------------------- | -------------- |
+| Azure PostgreSQL   |   Basic - 1 vCore - 21 GB       |   $29.82       |
+| Azure Service Bus  |   Basic - 1 Million             |   $0.05        |
+| Azure App Service  |   Basic (B1)                    |   $12.41       |
+| Azure Function App |   1 Million call - 5000 ms time |   $3.60        |
+| Total Cost         |                                 |   $45.88       |
 
 ## Architecture Explanation
-This is a placeholder section where you can provide an explanation and reasoning for your architecture selection for both the Azure Web App and Azure Function.
+
+We need to separate the email sending and the web app functions, because sending emails is better done in the background. The web app only handles listing and queuing, and the Free Tier can handle this since the web traffic is low (I have used Basic for CI/CD). The cost will depend on the background process, how many emails we send, and how many attendees we have. If there are a lot of attendees, it will take longer to execute and increase the monthly cost. But the Azure Function App is very affordable and we don’t have to worry about the web app needing more resources.
